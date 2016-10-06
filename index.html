@@ -1,16 +1,21 @@
 <!DOCUMENT html>
 <html>
+    
     <head>
         <title>Chapolin Binário</title>
         <meta charset="utf-8">
         <link rel="stylesheet" href="css/body.css">
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+
     </head>
     <body>
         <script type="text/javascript" src="js/pixelMap.js"></script>
         <script type="text/javascript" src="js/arena.js"></script>
+        <script type="text/javascript" src="js/placar.js"></script>
         <script type="text/javascript">                        
             
-        setInterval(gameloop,50);
+        setInterval(gameloop,60);
+        init();
             
         function init(){
             canvas = document.createElement("canvas");
@@ -23,14 +28,17 @@
             context = canvas.getContext("2d");
             
             
+          
+            
         }    
-        function draw(){
+        function draw(){        
             context.clearRect(0,0,window.innerWidth,window.innerHeight);
             drawArena();
-            pixelMap(100);
+            //drawScore();
+            pixelMap(100);        
         }
             
-        init();
+        
         
         function gameloop(){
             draw()            
