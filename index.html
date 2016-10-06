@@ -1,0 +1,40 @@
+<!DOCUMENT html>
+<html>
+    <head>
+        <title>Chapolin Binário</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="css/body.css">
+    </head>
+    <body>
+        <script type="text/javascript" src="js/pixelMap.js"></script>
+        <script type="text/javascript" src="js/arena.js"></script>
+        <script type="text/javascript">                        
+            
+        setInterval(gameloop,50);
+            
+        function init(){
+            canvas = document.createElement("canvas");
+            canvas.width = window.innerWidth -20;
+            canvas.height = window.innerHeight -20;    
+            canvas.id = "my_canvas";
+            
+            document.body.appendChild(canvas);    
+            
+            context = canvas.getContext("2d");
+            
+            
+        }    
+        function draw(){
+            context.clearRect(0,0,window.innerWidth,window.innerHeight);
+            drawArena();
+            pixelMap(100);
+        }
+            
+        init();
+        
+        function gameloop(){
+            draw()            
+        }
+        </script>
+    </body>
+</html>
