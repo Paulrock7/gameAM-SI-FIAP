@@ -1,6 +1,6 @@
 <!DOCUMENT html>
 <html>
-    
+
     <head>
         <title>Chapolin Binário</title>
         <meta charset="utf-8">
@@ -12,36 +12,45 @@
         <script type="text/javascript" src="js/pixelMap.js"></script>
         <script type="text/javascript" src="js/arena.js"></script>
         <script type="text/javascript" src="js/placar.js"></script>
-        <script type="text/javascript">                        
-            
-        setInterval(gameloop,60);
+        <script type="text/javascript" src="js/robo.js"></script>
+        <script type="text/javascript">
+        
+        requestAnimationFrame(gameloop);
+
         init();
-            
+
+
         function init(){
             canvas = document.createElement("canvas");
             canvas.width = window.innerWidth -20;
-            canvas.height = window.innerHeight -20;    
+            canvas.height = window.innerHeight -20;
             canvas.id = "my_canvas";
-            
-            document.body.appendChild(canvas);    
-            
+
+            var tecla;
+            document.body.appendChild(canvas);
+
             context = canvas.getContext("2d");
-            
+
+            var startX=50,startY=50;
             
           
-            
-        }    
-        function draw(){        
+        }
+        function draw(){
             context.clearRect(0,0,window.innerWidth,window.innerHeight);
             drawArena();
-            //drawScore();
-            pixelMap(100);        
-        }
+            drawScore(3,5);
+            robo1(context,50,50,"red");
+            robo2(context,350,350,"yellow");
             
-        
-        
-        function gameloop(){
-            draw()            
+            //pixelMap(100);
+        }
+
+
+
+        function gameloop(){                    
+            draw();
+
+            requestAnimationFrame(gameloop);
         }
         </script>
     </body>
