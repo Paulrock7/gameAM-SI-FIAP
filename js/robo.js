@@ -2,6 +2,8 @@ function robo1(context,x,y,color){
     var context = context;
   
     context.save();              
+    
+    
     //context.fillStyle=color;
     //context.beginPath();
     //context.fillRect(x,y,window.innerWidth/30,window.innerHeight/15); 
