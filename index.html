@@ -20,15 +20,24 @@
          
         var xP1=window.innerWidth/4,yP1=window.innerHeight/4;
         var xP2=window.innerWidth/1.34,yP2=window.innerHeight/1.3;
-        var velocidade = 30;
+        var velocidade = 50;
+        var velocidadeAdversario = 1;
         var raio = window.innerWidth/4;
         var pontoP1=0;
         var tempo=60;
         var professor = new Image();
-        var robo = new Image();        
+        var robo = new Image();  
+        var vida = new Image();       
+        var nivel=1;
+        var pilha = new Image();
+        var xComida=window.innerWidth/2;
+        var yComida=window.innerHeight/2;
+        var vidas = 3;
 
         professor.src="img/belizario-right.png"
         robo.src="img/robo.png";
+        vida.src="img/vida.png";
+        pilha.src="img/pilha.png";
 
         function init(){
             canvas = document.createElement("canvas");
@@ -45,60 +54,84 @@
 
         requestAnimationFrame(gameloop);
 
+        function movimentaProfessor(){
+            if(xP1<xP2) { 
+                xP1 += velocidadeAdversario; //move para direita
+                professor.src="img/belizario-right.png";   
+            }
+            if(xP1>xP2) { 
+                xP1 -= velocidadeAdversario; //move para esquerda
+                professor.src="img/belizario-left.png";   
+            }           
+            if(yP1>yP2) {
+                yP1 -= velocidadeAdversario; //move para cima
+            }
+            if(yP1<yP2) {
+                yP1 += velocidadeAdversario; //move para baixo 
+            }             
+
+        }
 
         function draw(){
             context.clearRect(0,0,window.innerWidth,window.innerHeight);
+
             drawArena();
-            drawScore(pontoP1);
+            drawScore(pontoP1,nivel,vidas);
             robo1(context,xP1,yP1,"red");
-            robo2(context,xP2,yP2,"yellow");        
+            robo2(context,xP2,yP2,"yellow");  
+            comida(context,xComida,yComida,"yellow");
            // pixelMap(50);
         }
         
         window.onkeydown = pressionaTecla;
         function pressionaTecla(e) {
-            //alert(raio);
-            if(e.keyCode == 65 && xP1>x/4.3) { 
-                xP1 -= velocidade; //move para esquerda  
-                professor.src="img/belizario-left.png";   
-            }
-            if(e.keyCode == 68 && xP1<x/4.3+x/1.9) {
-                xP1 += velocidade; //move para direita
-                professor.src="img/belizario-right.png";
-            }
-            if(e.keyCode == 87 && yP1>y/6) {
-                yP1 -= velocidade; //move para cima
-            }
-            if(e.keyCode == 83 && yP1<y/1.2) {
-                yP1 += velocidade; //move para baixo 
-            }
-
-            //PLAYER 2 
-            if(e.keyCode == 37 && xP2>x/4.3) { 
+            
+            //PLAYER 
+            if((e.keyCode == 37 || e.keyCode == 65) && xP2>x/4.3) { 
                 xP2 -= velocidade; //move para esquerda     
             }
-            if(e.keyCode == 39 && xP2<x/4.3+x/1.92) {
+            if((e.keyCode == 39 || e.keyCode == 68) && xP2<x/4.3+x/1.92) {
                 xP2 += velocidade; //move para direita
             }
-            if(e.keyCode == 38 && yP2>y/6) {
+            if((e.keyCode == 38 || e.keyCode == 87)&& yP2>y/6) {
                 yP2 -= velocidade; //move para cima
             }
-            if(e.keyCode == 40 && yP2<y/1.23) {
+            if((e.keyCode == 40 || e.keyCode == 83) && yP2<y/1.23) {
                 yP2 += velocidade; //move para baixo 
             }
         }
-
+        
      
         function detectarColisao(){        
-            if(((xP1+70)>xP2&&xP1<(xP2+80))&&((yP1+90)>yP2&&yP1<(yP2+90))){
-                pontoP1 +=1;
-
+            if(((xP1+70)>xP2&&xP1<(xP2+80))&&((yP1+90)>yP2&&yP1<(yP2+90))){ 
+                vidas -=1;
+                if (vidas == 0){
+                    vidas = 3;
+                    velocidadeAdversario = 1;
+                    nivel = 1;
+                    pontoP1 = 0;
+                }
+                
                 xP1=window.innerWidth/4,yP1=window.innerHeight/4;
                 xP2=window.innerWidth/1.34,yP2=window.innerHeight/1.3;
             } 
+           
+            if(((xP2+70)>xComida&&xP2<(xComida+80))&&((yP2+90)>yComida&&yP2<(yComida+90))){
+                var x = window.innerWidth;
+                var y = window.innerHeight-20;
+        
+                pontoP1 +=1;
+                nivel +=1;
+                velocidadeAdversario += 0.2;
+                
+
+                xComida=Math.floor((Math.random()*(x/1.69-x/4.53)+x/4.53));
+                yComida=Math.floor((Math.random()*(y/1.2-y/7)+y/7));
+            }
         }
-      
+        
         function gameloop(){   
+            movimentaProfessor();
             draw();
             detectarColisao();
             requestAnimationFrame(gameloop);

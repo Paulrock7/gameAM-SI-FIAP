@@ -31,7 +31,7 @@ function drawArena(){
     context.fill();
     */  
     context.fillRect(x/4.53,y/7,x/1.69,y/1.2);
-    
+
     context.fillStyle="#C71585";
     context.font=x/18+"px arial";
     context.fillText("BELIZARIO'S SCAPE",x/4,y/1.8);
