@@ -2,11 +2,9 @@
 <html>
 
     <head>
-        <title>Chapolin Binário</title>
+        <title>Belizário's Scape</title>
         <meta charset="utf-8">
         <link rel="stylesheet" href="css/body.css">
-        <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
-
     </head>
     <body>
         <script type="text/javascript" src="js/pixelMap.js"></script>
@@ -14,11 +12,18 @@
         <script type="text/javascript" src="js/placar.js"></script>
         <script type="text/javascript" src="js/robo.js"></script>
         <script type="text/javascript">
-        
-        requestAnimationFrame(gameloop);
+         
+        var xP1=window.innerWidth/4,yP1=window.innerHeight/4;
+        var xP2=window.innerWidth/1.34,yP2=window.innerHeight/1.3;
+        var velocidade = 30;
+        var raio = window.innerWidth/4;
+        var pontoP1=0;
 
-        init();
+        var professor = new Image();
+        var robo = new Image();        
 
+        professor.src="img/belizario-right.png"
+        robo.src="img/robo.png";
 
         function init(){
             canvas = document.createElement("canvas");
@@ -26,32 +31,79 @@
             canvas.height = window.innerHeight -20;
             canvas.id = "my_canvas";
 
-            var tecla;
             document.body.appendChild(canvas);
 
             context = canvas.getContext("2d");
-
-            var startX=50,startY=50;
             
-          
         }
+        init();
+
+        requestAnimationFrame(gameloop);
+
+
         function draw(){
             context.clearRect(0,0,window.innerWidth,window.innerHeight);
             drawArena();
-            drawScore(3,5);
-            robo1(context,50,50,"red");
-            robo2(context,350,350,"yellow");
+            drawScore(pontoP1);
+            robo1(context,xP1,yP1,"red");
+            robo2(context,xP2,yP2,"yellow");
             
-            //pixelMap(100);
+           // pixelMap(50);
+        }
+        
+        window.onkeydown = pressionaTecla;
+
+        function pressionaTecla(e) {
+            //alert(raio);
+            if(e.keyCode == 65 && xP1>x/4.3) { 
+                xP1 -= velocidade; //move para esquerda  
+                professor.src="img/belizario-left.png";   
+            }
+            if(e.keyCode == 68 && xP1<x/4.3+x/1.9) {
+                xP1 += velocidade; //move para direita
+                professor.src="img/belizario-right.png";
+            }
+            if(e.keyCode == 87 && yP1>y/6) {
+                yP1 -= velocidade; //move para cima
+            }
+            if(e.keyCode == 83 && yP1<y/1.2) {
+                yP1 += velocidade; //move para baixo 
+            }
+
+            //PLAYER 2 
+            if(e.keyCode == 37 && xP2>x/4.3) { 
+                xP2 -= velocidade; //move para esquerda     
+            }
+            if(e.keyCode == 39 && xP2<x/4.3+x/1.92) {
+                xP2 += velocidade; //move para direita
+            }
+            if(e.keyCode == 38 && yP2>y/6) {
+                yP2 -= velocidade; //move para cima
+            }
+            if(e.keyCode == 40 && yP2<y/1.23) {
+                yP2 += velocidade; //move para baixo 
+            }
         }
 
+     
+        function detectarColisao(){
+        
+    
+            if(((xP1+70)>xP2&&xP1<(xP2+80))&&((yP1+90)>yP2&&yP1<(yP2+90))){
 
+                pontoP1 +=1;
 
+                xP1=window.innerWidth/4,yP1=window.innerHeight/4;
+                xP2=window.innerWidth/1.34,yP2=window.innerHeight/1.3;
+            } 
+        }
+      
         function gameloop(){                    
             draw();
-
+            detectarColisao();
             requestAnimationFrame(gameloop);
-        }
-        </script>
+        }      
+     
+        </script>      
     </body>
 </html>

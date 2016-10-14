@@ -9,7 +9,8 @@ function drawArena(){
     var raioArena = x/4;
     
     context.beginPath();
-        
+
+    /* Cria a arena circular
     context.arc(
         x/2,             //X Centro
         y/2,             //Y Centro
@@ -26,11 +27,14 @@ function drawArena(){
         270*Math.PI/180, //Término 270 graus
         true              //Sentido horário
     );
-        context.fill();
+
+    context.fill();
+    */  
+    context.fillRect(x/4.53,y/7,x/1.69,y/1.2);
     
     context.fillStyle="#C71585";
-    context.font=x/15+"px arial";
-    context.fillText("ROBO CUP",x/3.1,y/1.8);
+    context.font=x/18+"px arial";
+    context.fillText("BELIZARIO'S SCAPE",x/4,y/1.8);
     
     context.restore();
 }
