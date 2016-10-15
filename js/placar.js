@@ -1,40 +1,36 @@
-function drawScore(pontoP1,nivel,vidas){
-    context.save();
+function drawScore(pontuacao,nivel,vidas){          //RECEBE OS VALORES QUE APARECERAO NA TELA
+    context.save();                                 //SALVA O CONTEXTO POR SEGURANCA
     
-    context.fillStyle="#C71585";
+    context.fillStyle="#C71585";                    //COR DA FONTE
     
-    function p1(pontoP1){    
-        this.pontos = pontoP1;
-        context.font=x/25+"px arial";
-        context.fillText("Pontuação",x/60,y/9.5);
-        context.fillText(this.pontos,x/10,y/4);
+    function p1(pontuacao){                         //DESENHA PONTUACAO
+        this.pontos = pontuacao;                    //*
+        context.font=x/25+"px arial";               //TAMANHO E FAMILIA DA FONTE 
+        context.fillText("Pilhas",x/18,y/9.5);   //TITULO
+        context.fillText(this.pontos,x/10,y/4);     //VALOR
     }
-    function level(nivel){
-        this.nivel = nivel;
-        context.font=x/25+"px arial";
-        context.fillText("Nível",x/1.18,y/9.5);
-        context.fillText(this.nivel,x/1.14,y/4);
+    function level(nivel){                          //DESENHA NIVEL
+        this.nivel = nivel;                         //*
+        context.font=x/25+"px arial";               //TAMANHO E FAMILIA DA FONTE
+        context.fillText("Nível",x/1.18,y/9.5);     //TITULO
+        context.fillText(this.nivel,x/1.14,y/4);    //VALOR
     }
 
- /*   function p2(pontoP2){   
-        this.pontos = pontoP2;
-        context.font=x/25+"px arial";
-        context.fillText("Pontuação P2",x/1.4,y/8);
-        context.fillText(this.pontos,x/1.2,y/4);
-    }*/
-    function drawVidas(vidas){
-        var j=4;
-        for (var i=0; i<vidas;i++){
-            j+=1;
-            context.drawImage(vida, window.innerHeight/j, innerHeight/2,80,100);
+    function drawVidas(vidas){                      //DESENHA VIDAS
+        var j=4;                                    //CONTADOR PARA POSICIONAMENTO DAS IMAGENS
+        if (vidas){                                 //VERIFICA SE HA VIDAS 
+             for (var i=0; i<vidas;i++){
+                j+=1;
+                context.drawImage(imgVida, window.innerHeight/j, innerHeight/2,80,100); //IMAGEM RECEBIDA DE IMAGENS.JS
+            }
+            context.font=x/26+"px arial";               
+            context.fillText("Belividas: "+vidas,x/60,y/2);
         }
-        context.font=x/26+"px arial";
-        context.fillText("Belividas: "+vidas,x/60,y/2);
-        
     }
-    p1(pontoP1);
-    level(nivel);;
+    // CHAMA AS FUNCOES 
+    p1(pontuacao);
+    level(nivel);
     drawVidas(vidas);
-    //p2(pontoP2);
-    context.restore();
+
+    context.restore(); //RESTAURA CONTEXTO ANTERIOR 
 }
